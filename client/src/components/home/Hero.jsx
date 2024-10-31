@@ -1,7 +1,7 @@
 import Typewriter from "typewriter-effect";
 import { Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import  { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useMotionTemplate, useMotionValue, motion, animate } from "framer-motion";
 
@@ -19,12 +19,10 @@ const Hero = () => {
     });
   }, [color]);
 
-  const backgroundImage = useMemo(
-    () => useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`,
-    [color]
-  );
-  const border = useMemo(() => useMotionTemplate`1px solid ${color}`, [color]);
-  const boxShadow = useMemo(() => useMotionTemplate`0px 4px 24px ${color}`, [color]);
+  // Move useMotionTemplate hooks to the top level
+  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
+  const border = useMotionTemplate`1px solid ${color}`;
+  const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
 
   return (
     <motion.section
@@ -39,7 +37,7 @@ const Hero = () => {
           LankaBooky <br />
           <Typewriter
             options={{
-              strings: ["Find your dream hotel","Filter as per choice", "Book your stay now."],
+              strings: ["Find your dream hotel", "Filter as per choice", "Book your stay now."],
               autoStart: true,
               loop: true,
               delay: 50,
@@ -49,10 +47,10 @@ const Hero = () => {
           />
         </h1>
         <p className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed">
-            Booky is a platform where you can find your dream hotel, filter as per your choice, and book your stay now.
+          Booky is a platform where you can find your dream hotel, filter as per your choice, and book your stay now.
         </p>
 
-        {/* see hotels button */}
+        {/* See hotels button */}
         <motion.button
           style={{
             border,
